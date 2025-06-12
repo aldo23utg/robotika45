@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* Gaya dasar & Kustomisasi */
+.section-title {
+    @apply text-3xl md:text-4xl font-bold mb-4 text-cyan-300;
+}
+.section-paragraph {
+    @apply text-base md:text-lg text-gray-300 leading-relaxed;
+}
+.text-shadow-glow {
+    text-shadow: 0 0 15px theme('colors.brand-cyan/50%');
+}
+
+/* Loader */
+.loader {
+    @apply fixed inset-0 z-[100] flex justify-center items-center bg-brand-dark-blue transition-opacity duration-1000;
+}
+.loader.hidden {
+    @apply opacity-0 pointer-events-none;
+}
+.loader-spinner {
+    @apply w-12 h-12 border-4 border-white/20 border-t-brand-cyan rounded-full animate-spin;
+}
+
+/* Tombol Utama */
+.btn-primary {
+    @apply inline-block bg-brand-cyan text-brand-dark-blue font-bold px-8 py-3 rounded-full uppercase tracking-wider
+           transform transition-all duration-300 ease-out
+           hover:bg-cyan-300 hover:scale-105 hover:shadow-lg hover:shadow-brand-cyan/40;
+}
+
+/* Link Navigasi */
+.nav-link {
+    @apply text-white font-medium relative transition-all duration-300 after:content-[''] after:absolute after:left-0 after:bottom-[-6px] 
+           after:w-0 after:h-[2px] after:bg-cyan-400 after:transition-all after:duration-300 hover:text-cyan-300 hover:after:w-full;
+}
+.nav-link.active {
+    @apply text-cyan-300 after:w-full;
+}
+.nav-link-mobile {
+    @apply text-2xl hover:text-brand-cyan transition-transform duration-300 hover:scale-110;
+}
+
+/* Efek Glassmorphism Card */
+.glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8
+           shadow-2xl transition-all duration-500 hover:bg-white/10 hover:border-white/20 hover:-translate-y-2;
+}
+
+/* Gambar Prestasi */
+.prestation-img {
+    @apply rounded-lg w-full h-auto object-cover transition-all duration-500 ease-in-out hover:scale-105 filter drop-shadow-lg;
+}
+
+/* Gambar Galeri */
+.gallery-img {
+    @apply w-full h-full object-cover rounded-lg shadow-lg cursor-pointer
+           transition-all duration-500 filter grayscale hover:grayscale-0 hover:scale-105;
+}
+
+/* Ikon Sosial Media */
+.social-icon {
+    @apply p-3 bg-white/10 rounded-full transition-all duration-300 ease-out
+           hover:bg-brand-cyan hover:scale-110 hover:-translate-y-1;
+}
+.social-icon img {
+    @apply transition-transform duration-300;
+}
+.social-icon:hover img {
+    @apply scale-90;
+}
+
+/* === Animasi On Scroll === */
+.reveal, .reveal-left, .reveal-right {
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal {
+    transform: translateY(50px);
+}
+.reveal-left {
+    transform: translateX(-50px);
+}
+.reveal-right {
+    transform: translateX(50px);
+}
+
+.reveal.visible, .reveal-left.visible, .reveal-right.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Animasi Fade-in-up untuk Hero */
+.animate-fade-in-up {
+    animation: fadeInUp 1.2s 0.5s ease-out forwards;
+    opacity: 0;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Styling Tombol Hamburger Menu */
+.hamburger span {
+    @apply block w-6 h-0.5 bg-white transition-all duration-300 ease-in-out;
+}
+.hamburger.open .hamburger-top {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.open .hamburger-middle {
+    opacity: 0;
+}
+.hamburger.open .hamburger-bottom {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
