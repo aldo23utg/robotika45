@@ -141,6 +141,54 @@ section {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
+/* --- ANIMATION STYLES --- */
+
+/* Animasi untuk Hero Section (#beranda) */
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-down {
+    opacity: 0; /* Mulai dari tidak terlihat */
+    animation: slideDownFade 0.8s ease-out forwards;
+}
+
+.animate-slide-down.delay-1 {
+    animation-delay: 0.3s; /* Tambahkan delay untuk elemen kedua */
+}
+
+/* Animasi untuk Elemen saat di-scroll */
+.animate-on-scroll {
+    opacity: 0;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.slide-in-left {
+    transform: translateX(-100px);
+}
+
+.animate-on-scroll.slide-in-right {
+    transform: translateX(100px);
+}
+
+.animate-on-scroll.slide-in-up {
+    transform: translateY(50px);
+}
+
+/* Class 'is-visible' akan ditambahkan oleh JS saat elemen masuk viewport */
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+}
+
+
 /* Modifikasi untuk gambar di bagian "Tentang Kami" */
 #tentang .about-image-container {
     position: relative;

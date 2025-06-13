@@ -86,6 +86,31 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionStorage.setItem('devPopupShown', 'true');
     }
 
+    /**
+     * Observer untuk animasi elemen saat scroll
+     */
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    if (animatedElements.length > 0) {
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Jika elemen masuk ke viewport, tambahkan class 'is-visible'
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                } 
+                // Jika elemen keluar dari viewport, hapus class 'is-visible'
+                // Ini akan membuat animasi berjalan setiap kali di-scroll
+                else {
+                    entry.target.classList.remove('is-visible');
+                }
+            });
+        }, { threshold: 0.1 }); // Animasi terpicu saat 10% elemen terlihat
+
+        // Terapkan observer ke setiap elemen yang ingin dianimasikan
+        animatedElements.forEach(el => {
+            scrollObserver.observe(el);
+        });
+    }
+
 
     /**
      * Fungsi untuk menutup navbar-collapse setelah link di-klik (mobile view)
