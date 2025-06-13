@@ -30,8 +30,6 @@ body {
     transition: background 0.4s ease, border 0.4s ease;
 }
 
-/* Properti flex-grow dihapus dari sini untuk memperbaiki layout */
-
 #navbarUtama .navbar-brand {
     color: rgba(255, 255, 255, 0.85);
     font-weight: 700;
@@ -141,181 +139,116 @@ section {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-/* --- ANIMATION STYLES --- */
-
-/* Animasi untuk Hero Section (#beranda) */
+/* --- REVISED ANIMATION STYLES --- */
 @keyframes slideDownFade {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-
 .animate-slide-down {
-    opacity: 0; /* Mulai dari tidak terlihat */
+    opacity: 0;
     animation: slideDownFade 0.8s ease-out forwards;
 }
-
 .animate-slide-down.delay-1 {
-    animation-delay: 0.3s; /* Tambahkan delay untuk elemen kedua */
+    animation-delay: 0.3s;
 }
-
-/* Animasi untuk Elemen saat di-scroll */
 .animate-on-scroll {
     opacity: 0;
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
-
-.animate-on-scroll.slide-in-left {
-    transform: translateX(-100px);
-}
-
-.animate-on-scroll.slide-in-right {
-    transform: translateX(100px);
-}
-
-.animate-on-scroll.slide-in-up {
-    transform: translateY(50px);
-}
-
-/* Class 'is-visible' akan ditambahkan oleh JS saat elemen masuk viewport */
 .animate-on-scroll.is-visible {
     opacity: 1;
-    transform: translateX(0) translateY(0);
+    transform: translateY(0);
 }
-
 
 /* Modifikasi untuk gambar di bagian "Tentang Kami" */
-#tentang .about-image-container {
-    position: relative;
-    width: 300px; /* Lebar gambar lebih kecil */
-    height: 300px; /* Tinggi gambar lebih kecil */
+#tentang .about-image-container{position:relative;width:300px;height:300px;overflow:hidden;border-radius:.375rem;box-shadow:0 .5rem 1rem rgba(0,0,0,.15)}
+#tentang .img-fluid{height:100%;width:100%;object-fit:cover;object-position:center;transition:filter .3s ease,transform .3s ease}
+#tentang .about-image-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);color:#fff;display:flex;justify-content:center;align-items:center;opacity:0;transition:opacity .3s ease;text-align:center}
+#tentang .about-image-container:hover .img-fluid{filter:blur(5px);transform:scale(1.05)}
+#tentang .about-image-container:hover .about-image-overlay{opacity:1}
+#tentang .about-image-text{font-weight:700;font-size:1.2rem;text-shadow:1px 1px 3px rgba(0,0,0,.7)}
+
+/* Styling untuk Seksi Divisi */
+#divisi .card-img-top{height:350px;width:100%;object-fit:cover}
+#divisi .card{position:relative;transition:transform .3s ease,box-shadow .3s ease;border:var(--bs-card-border-width) solid var(--bs-card-border-color)}
+#divisi .card:hover{transform:translateY(-10px);box-shadow:0 10px 20px rgba(0,0,0,.15)}
+#divisi .card-img-top{transition:filter .35s ease-in-out,transform .35s ease-in-out}
+#divisi .card:hover .card-img-top{filter:blur(4px);transform:scale(1.1)}
+#divisi .card-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .35s ease-in-out;text-align:center;padding:1rem}
+#divisi .card:hover .card-overlay{opacity:1}
+#divisi .card-overlay .card-title{text-shadow:1px 1px 3px rgba(0,0,0,.7)}
+
+/* --- Filter Navigation Styling --- */
+.filter-nav {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--bs-border-color-translucent);
+}
+.filter-nav .nav-link {
+    font-weight: 600;
+    color: var(--bs-body-color);
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    margin: 0.2rem;
+    transition: all 0.3s ease;
+}
+.filter-nav .nav-link:hover {
+    border-color: var(--bs-primary-border-subtle);
+}
+.filter-nav .nav-link.active {
+    background-color: var(--bs-primary);
+    color: #fff;
+    border-color: var(--bs-primary);
+}
+[data-bs-theme="dark"] .filter-nav .nav-link.active {
+    background-color: var(--bs-primary);
+    color: #fff;
+}
+[data-bs-theme="dark"] .filter-nav .nav-link:hover {
+    border-color: var(--bs-primary);
+}
+
+/* Styling untuk Konten Grup Organisasi (untuk transisi) */
+.org-group {
+    transition: opacity 0.4s ease-in-out, max-height 0.5s ease-in-out, margin 0.5s ease-in-out;
     overflow: hidden;
-    border-radius: .375rem; /* Menjaga border-radius */
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15); /* Menjaga shadow */
-}
-#tentang .img-fluid {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: filter 0.3s ease, transform 0.3s ease;
-}
-#tentang .about-image-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    text-align: center;
-}
-#tentang .about-image-container:hover .img-fluid {
-    filter: blur(5px);
-    transform: scale(1.05);
-}
-#tentang .about-image-container:hover .about-image-overlay {
     opacity: 1;
+    max-height: 2000px; /* Nilai besar untuk menampung konten */
+    margin-top: 1rem;
+    visibility: visible;
 }
-#tentang .about-image-text {
-    font-weight: bold;
-    font-size: 1.2rem;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-}
-
-
-/* Modifikasi untuk card gambar di bagian "Divisi" menjadi potret */
-#divisi .card-img-top {
-    height: 350px; /* Mengubah tinggi untuk tampilan potret */
-    width: 100%;
-    object-fit: cover;
-}
-
-#divisi .card {
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
-}
-#divisi .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-#divisi .card-img-top {
-    transition: filter 0.35s ease-in-out, transform 0.35s ease-in-out;
-}
-#divisi .card:hover .card-img-top {
-    filter: blur(4px);
-    transform: scale(1.1);
-}
-#divisi .card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.org-group.hidden {
     opacity: 0;
-    transition: opacity 0.35s ease-in-out;
-    text-align: center;
-    padding: 1rem;
-}
-#divisi .card:hover .card-overlay {
-    opacity: 1;
-}
-#divisi .card-overlay .card-title {
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    max-height: 0;
+    margin-top: 0;
+    visibility: hidden;
 }
 
-#kontak {
-    background-color: #212529;
-}
-#kontak a {
-    transition: color 0.3s;
-}
-#kontak a:hover {
-    color: #0d6efd !important;
-}
+/* --- MOBILE CAROUSEL STYLING --- */
+#divisi .carousel .carousel-control-prev-icon,
+#divisi .carousel .carousel-control-next-icon{background-color:rgba(0,0,0,.4);border-radius:50%;background-size:50% 50%;width:2rem;height:2rem}
+#divisi .carousel .carousel-indicators{position:static;margin-top:1rem}
+#divisi .carousel .carousel-indicators button{background-color:#adb5bd;opacity:.8}
+#divisi .carousel .carousel-indicators .active{background-color:#212529;opacity:1}
+
+/* --- Kontak & Footer --- */
+#kontak{background-color:#212529}
+#kontak a{transition:color .3s}
+#kontak a:hover{color:#0d6efd!important}
 
 @media (max-width: 991.98px) {
-    #navbarUtama {
-        background: rgba(33, 37, 41, 0.9);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        width: 90%;
-    }
-    #navbarUtama.navbar-on-light {
-        background: rgba(248, 249, 250, 0.9);
-    }
-    .navbar-collapse {
-        padding: 1rem 0;
-    }
-    .theme-toggle {
-        margin-left: 0 !important;
-        margin-top: 0.5rem;
-        align-self: flex-start;
-    }
-    section {
-        padding-top: 80px;
-        padding-bottom: 80px;
-    }
+    #navbarUtama{background:rgba(33,37,41,.9);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);width:90%}
+    #navbarUtama .navbar-toggler{border-color:rgba(255,255,255,.4)}
+    #navbarUtama .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.7)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")}
+    #navbarUtama.navbar-on-light{background:rgba(248,249,250,.9)}
+    #navbarUtama.navbar-on-light .navbar-toggler{border-color:rgba(0,0,0,.2)}
+    #navbarUtama.navbar-on-light .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")}
+    .navbar-collapse{padding:1rem 0}
+    .theme-toggle{margin-left:0!important;margin-top:.5rem;align-self:flex-start}
+    section{padding-top:80px;padding-bottom:80px}
 }
 
 /* --- Style untuk Popup Peringatan --- */
-.popup-warning-text {
-    color: red;
-}
+.popup-warning-text{color:red}

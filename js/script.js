@@ -12,10 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const checkNavbarVisibility = () => {
         if (htmlElement.getAttribute('data-bs-theme') === 'light') {
             let isIntersectingLight = false;
-            // Kita perlu memeriksa posisi scroll secara manual karena observer tidak selalu aktif
             lightSections.forEach(section => {
                 const rect = section.getBoundingClientRect();
-                // Cek apakah bagian atas section berada di area atas viewport
                 if (rect.top <= 85 && rect.bottom >= 85) {
                     isIntersectingLight = true;
                 }
@@ -27,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 navbar.classList.remove('navbar-on-light');
             }
         } else {
-            // Selalu hapus class jika dalam mode gelap
             navbar.classList.remove('navbar-on-light');
         }
     };
@@ -39,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const setTheme = (theme) => {
         htmlElement.setAttribute('data-bs-theme', theme);
         localStorage.setItem('theme', theme);
-        // Panggil pengecekan visibilitas setelah tema diubah
         checkNavbarVisibility();
     };
 
@@ -70,11 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
             rootMargin: '-85px 0px -90% 0px',
             threshold: 0
         };
-
         const observer = new IntersectionObserver(checkNavbarVisibility, observerOptions);
-        lightSections.forEach(section => {
-            observer.observe(section);
-        });
+        lightSections.forEach(section => observer.observe(section));
     }
     
     /**
@@ -93,21 +86,44 @@ document.addEventListener('DOMContentLoaded', function() {
     if (animatedElements.length > 0) {
         const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // Jika elemen masuk ke viewport, tambahkan class 'is-visible'
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                } 
-                // Jika elemen keluar dari viewport, hapus class 'is-visible'
-                // Ini akan membuat animasi berjalan setiap kali di-scroll
-                else {
+                } else {
                     entry.target.classList.remove('is-visible');
                 }
             });
-        }, { threshold: 0.1 }); // Animasi terpicu saat 10% elemen terlihat
+        }, { threshold: 0.1 });
 
-        // Terapkan observer ke setiap elemen yang ingin dianimasikan
-        animatedElements.forEach(el => {
-            scrollObserver.observe(el);
+        animatedElements.forEach(el => scrollObserver.observe(el));
+    }
+    
+    /**
+     * BARU: Logika untuk Filter Struktur Organisasi
+     */
+    const filterContainer = document.querySelector('.filter-nav');
+    if (filterContainer) {
+        const filterLinks = filterContainer.querySelectorAll('.nav-link');
+        const orgGroups = document.querySelectorAll('#divisi .org-group');
+
+        filterLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Hapus kelas active dari semua link dan tambahkan ke yang diklik
+                filterLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.getAttribute('data-filter');
+
+                // Lakukan filter pada grup
+                orgGroups.forEach(group => {
+                    if (filter === 'all' || group.getAttribute('data-category') === filter) {
+                        group.classList.remove('hidden');
+                    } else {
+                        group.classList.add('hidden');
+                    }
+                });
+            });
         });
     }
 
@@ -122,9 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (navbarCollapse.classList.contains('show')) {
-                    const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-                        toggle: false
-                    });
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
                     bsCollapse.hide();
                 }
             });
