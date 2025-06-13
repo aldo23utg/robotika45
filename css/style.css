@@ -226,3 +226,8 @@ section {
         padding-bottom: 80px;
     }
 }
+
+/* --- Style untuk Popup Peringatan --- */
+.popup-warning-text {
+    color: red;
+}

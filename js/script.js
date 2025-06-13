@@ -76,6 +76,15 @@ document.addEventListener('DOMContentLoaded', function() {
             observer.observe(section);
         });
     }
+    
+    /**
+     * Munculkan popup pengembangan saat pertama kali membuka website (per sesi)
+     */
+    if (!sessionStorage.getItem('devPopupShown')) {
+        const devPopupModal = new bootstrap.Modal(document.getElementById('devPopup'));
+        devPopupModal.show();
+        sessionStorage.setItem('devPopupShown', 'true');
+    }
 
 
     /**
