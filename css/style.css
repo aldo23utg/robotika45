@@ -41,6 +41,24 @@ body {
     color: rgba(255, 255, 255, 0.7);
     transition: color 0.4s ease;
     padding: 0.5rem 1rem;
+    position: relative;
+}
+
+#navbarUtama .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    transition: width 0.3s ease-in-out;
+}
+
+#navbarUtama .nav-link:hover::after,
+#navbarUtama .nav-link.active::after {
+    width: 60%;
 }
 
 #navbarUtama .nav-link:hover {
@@ -69,6 +87,11 @@ body {
 #navbarUtama.navbar-on-light .nav-link.active {
     color: #000 !important;
 }
+
+#navbarUtama.navbar-on-light .nav-link::after {
+    background-color: #000;
+}
+
 #navbarUtama.navbar-on-light .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
@@ -179,7 +202,7 @@ section {
 #divisi .card:hover .card-overlay{opacity:1}
 #divisi .card-overlay .card-title{text-shadow:1px 1px 3px rgba(0,0,0,.7)}
 
-/* --- Filter Navigation Styling --- */
+/* --- Filter Navigation Styling (REVISED) --- */
 .filter-nav {
     padding-bottom: 1rem;
     border-bottom: 2px solid var(--bs-border-color-translucent);
@@ -188,43 +211,109 @@ section {
     font-weight: 600;
     color: var(--bs-body-color);
     background-color: transparent;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     border-radius: 50px;
-    padding: 0.5rem 1rem;
-    margin: 0.2rem;
-    transition: all 0.3s ease;
+    padding: 0.6rem 1.3rem;
+    margin: 0.2rem 0.4rem;
+    transition: all 0.3s ease-in-out;
 }
+
 .filter-nav .nav-link:hover {
-    border-color: var(--bs-primary-border-subtle);
+    color: var(--bs-emphasis-color);
+    background-color: var(--bs-secondary-bg);
 }
+
 .filter-nav .nav-link.active {
-    background-color: var(--bs-primary);
-    color: #fff;
-    border-color: var(--bs-primary);
+    color: var(--bs-emphasis-color);
+    background-color: rgba(255, 255, 255, 0.4); /* Glass effect background */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
-[data-bs-theme="dark"] .filter-nav .nav-link.active {
-    background-color: var(--bs-primary);
-    color: #fff;
-}
+
 [data-bs-theme="dark"] .filter-nav .nav-link:hover {
-    border-color: var(--bs-primary);
+    color: var(--bs-emphasis-color);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-bs-theme="dark"] .filter-nav .nav-link.active {
+    color: var(--bs-emphasis-color);
+    background: rgba(70, 70, 70, 0.4); /* Dark glass effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Styling untuk Konten Grup Organisasi (untuk transisi) */
 .org-group {
-    transition: opacity 0.4s ease-in-out, max-height 0.5s ease-in-out, margin 0.5s ease-in-out;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out, max-height 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     overflow: hidden;
     opacity: 1;
     max-height: 2000px; /* Nilai besar untuk menampung konten */
-    margin-top: 1rem;
+    transform: translateY(0);
     visibility: visible;
 }
 .org-group.hidden {
     opacity: 0;
     max-height: 0;
     margin-top: 0;
+    transform: translateY(20px);
     visibility: hidden;
+    pointer-events: none;
 }
+
+/* --- Prestasi Timeline Styling --- */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 18px;
+    height: 100%;
+    width: 4px;
+    background: var(--bs-border-color-translucent);
+    border-radius: 2px;
+}
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 50px;
+}
+.timeline-dot {
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--bs-secondary-bg);
+    border: 4px solid var(--bs-primary);
+    border-radius: 50%;
+    z-index: 1;
+}
+.timeline-content {
+    background: var(--bs-body-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid var(--bs-border-color-translucent);
+}
+.timeline-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--bs-emphasis-color);
+}
+.timeline-date {
+    font-weight: 600;
+    color: var(--bs-primary);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
 
 /* --- MOBILE CAROUSEL STYLING --- */
 #divisi .carousel .carousel-control-prev-icon,
@@ -248,6 +337,21 @@ section {
     .navbar-collapse{padding:1rem 0}
     .theme-toggle{margin-left:0!important;margin-top:.5rem;align-self:flex-start}
     section{padding-top:80px;padding-bottom:80px}
+
+    /* Menghilangkan garis bawah pada navlink di mobile */
+    #navbarUtama .nav-link::after {
+        display: none;
+    }
+
+    .timeline::before {
+        left: 9px;
+    }
+    .timeline-item {
+        padding-left: 40px;
+    }
+    .timeline-dot {
+        left: 0;
+    }
 }
 
 /* --- Style untuk Popup Peringatan --- */

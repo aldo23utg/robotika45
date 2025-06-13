@@ -98,13 +98,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * BARU: Logika untuk Filter Struktur Organisasi
+     * UPDATED: Logika untuk Filter Struktur Organisasi
      */
     const filterContainer = document.querySelector('.filter-nav');
     if (filterContainer) {
         const filterLinks = filterContainer.querySelectorAll('.nav-link');
         const orgGroups = document.querySelectorAll('#divisi .org-group');
 
+        // Fungsi untuk menerapkan filter
+        const applyFilter = (filterValue) => {
+            orgGroups.forEach(group => {
+                if (group.getAttribute('data-category') === filterValue) {
+                    group.classList.remove('hidden');
+                } else {
+                    group.classList.add('hidden');
+                }
+            });
+        };
+
+        // Atur filter default saat halaman dimuat
+        const initialActiveFilter = filterContainer.querySelector('.nav-link.active');
+        if (initialActiveFilter) {
+            const initialFilterValue = initialActiveFilter.getAttribute('data-filter');
+            applyFilter(initialFilterValue);
+        }
+
+        // Tambahkan event listener ke setiap link filter
         filterLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -114,15 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.classList.add('active');
 
                 const filter = this.getAttribute('data-filter');
-
-                // Lakukan filter pada grup
-                orgGroups.forEach(group => {
-                    if (filter === 'all' || group.getAttribute('data-category') === filter) {
-                        group.classList.remove('hidden');
-                    } else {
-                        group.classList.add('hidden');
-                    }
-                });
+                applyFilter(filter);
             });
         });
     }
@@ -137,10 +148,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (navLinks.length > 0 && navbarCollapse) {
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                if (navbarCollapse.classList.contains('show')) {
-                    const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
-                    bsCollapse.hide();
-                }
+                // Pastikan smooth scroll berjalan sebelum menutup navbar
+                setTimeout(() => {
+                    if (navbarCollapse.classList.contains('show')) {
+                        const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+                        bsCollapse.hide();
+                    }
+                }, 300); // Waktu tunda kecil untuk memungkinkan scroll
             });
         });
     }
