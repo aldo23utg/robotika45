@@ -141,14 +141,54 @@ section {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
+/* Modifikasi untuk gambar di bagian "Tentang Kami" */
+#tentang .about-image-container {
+    position: relative;
+    width: 300px; /* Lebar gambar lebih kecil */
+    height: 300px; /* Tinggi gambar lebih kecil */
+    overflow: hidden;
+    border-radius: .375rem; /* Menjaga border-radius */
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15); /* Menjaga shadow */
+}
 #tentang .img-fluid {
-    height: 400px;
+    height: 100%;
     width: 100%;
     object-fit: cover;
     object-position: center;
+    transition: filter 0.3s ease, transform 0.3s ease;
 }
+#tentang .about-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+}
+#tentang .about-image-container:hover .img-fluid {
+    filter: blur(5px);
+    transform: scale(1.05);
+}
+#tentang .about-image-container:hover .about-image-overlay {
+    opacity: 1;
+}
+#tentang .about-image-text {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+
+/* Modifikasi untuk card gambar di bagian "Divisi" menjadi potret */
 #divisi .card-img-top {
-    height: 220px;
+    height: 350px; /* Mengubah tinggi untuk tampilan potret */
     width: 100%;
     object-fit: cover;
 }
